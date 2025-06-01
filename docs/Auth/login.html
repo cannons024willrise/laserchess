@@ -423,7 +423,7 @@ measurementId: "G-F0PHDZYB4M"
       await sendEmailVerification(userCredential.user);
       statusEl.textContent = "Signed up as " + userCredential.user.email + ". Check your email for verification!";
       errorMsgEl.textContent = "";  // Clear any previous errors
-      window.location.href = "docs/home/home.html";
+      window.location.href = "/home/home.html";
 
       alert("A verification email has been sent. Please verify your email.");
     } catch (error) {
@@ -441,7 +441,7 @@ measurementId: "G-F0PHDZYB4M"
       if (userCredential.user.emailVerified) {
         statusEl.textContent = "Signed in as " + userCredential.user.email;
         errorMsgEl.textContent = "";  // Clear any previous errors
-        window.location.href = "/docs/home/home.html"; 
+        window.location.href = "/home/home.html"; 
 
       } else {
         alert("Please verify your email before signing in.");
