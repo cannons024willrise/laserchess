@@ -423,7 +423,7 @@ measurementId: "G-F0PHDZYB4M"
       await sendEmailVerification(userCredential.user);
       statusEl.textContent = "Signed up as " + userCredential.user.email + ". Check your email for verification!";
       errorMsgEl.textContent = "";  // Clear any previous errors
-      window.location.href = "Frontend/home/home.html";
+      window.location.href = "docs/home/home.html";
 
       alert("A verification email has been sent. Please verify your email.");
     } catch (error) {
@@ -441,7 +441,7 @@ measurementId: "G-F0PHDZYB4M"
       if (userCredential.user.emailVerified) {
         statusEl.textContent = "Signed in as " + userCredential.user.email;
         errorMsgEl.textContent = "";  // Clear any previous errors
-        window.location.href = "Frontend/home/home.html"; 
+        window.location.href = "docs/home/home.html"; 
 
       } else {
         alert("Please verify your email before signing in.");
@@ -458,7 +458,7 @@ measurementId: "G-F0PHDZYB4M"
       const result = await signInWithPopup(auth, provider);
       statusEl.textContent = "Signed in as " + result.user.displayName;
       errorMsgEl.textContent = "";  // Clear any previous errors
-      window.location.href = "Frontend/home/home.html";
+      window.location.href = "docs/home/home.html";
 
     } catch (error) {
       errorMsgEl.textContent = "Google sign-in failed: " + error.message;
