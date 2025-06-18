@@ -497,18 +497,6 @@ measurementId: "G-F0PHDZYB4M"
     }
   });
 
-  // Sign Out function
-  signOutBtn.addEventListener("click", async () => {
-    try {
-      await signOut(auth);
-      statusEl.textContent = "Not logged in";
-      errorMsgEl.textContent = "";  // Clear any previous errors
-    } catch (error) {
-      console.error("Error signing out:", error);
-      errorMsgEl.textContent = "Sign-out failed: " + error.message;
-    }
-  });
-
 </script>
     </head>
     <body>
