@@ -348,24 +348,15 @@ body {
   }
 }
   </style>
+<script>
+  // This is outside the module and globally accessible
+  window.onTurnstileSuccess = function(token) {
+    console.log("✅ Turnstile success:", token);
+    window.turnstileToken = token;
+  };
+</script>
 
 <script type="module">
-
-  let turnstileToken = null;
-
-  function onTurnstileSuccess(token) {
-    turnstileToken = token;
-  }
-
-  document.getElementById("login-form").addEventListener("submit", (e) => {
-    e.preventDefault();
-    if (!turnstileToken) {
-      alert("Please complete the Turnstile check.");
-      return;
-    }
-console.log("Turnstile Success!");
-    // Proceed with login logic here (e.g., Firebase Auth)
-  });
 
 
    // Function to switch between themes randomly (50/50 chance)
