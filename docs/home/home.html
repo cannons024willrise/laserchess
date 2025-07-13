@@ -283,7 +283,7 @@
     onAuthStateChanged(auth, user => {
       if (!user) {
         // not signed in → back to login
-        window.location.replace("Frontend/Auth/login.html");
+        window.location.replace("https://laserchess.pages.dev/Auth/login");
       } else {
         // signed in → show email in header
         document.getElementById("userEmail").textContent = user.email;
@@ -293,7 +293,7 @@
     // 5) Sign-out helper (called by your Sign out link)
     window.handleSignOut = () => {
       signOut(auth)
-        .then(() => window.location.replace("Frontend/Auth/login.html"))
+        .then(() => window.location.replace("https://laserchess.pages.dev/Auth/login"))
         .catch(console.error);
     };
 
