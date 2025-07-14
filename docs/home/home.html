@@ -8,37 +8,194 @@
 
   <!-- Theme Styles -->
   <!-- Classic (Red) Theme -->
-  <style id="theme1">
-    @font-face { font-family: customfont; src: url(c.otf); }
-    html, body { height: 100%; margin: 0; padding: 0; font-family: customfont; background: linear-gradient(#1b0b0b, #3a1b1b); }
-    .play-now-btn { position: relative; display: inline-block; padding: 12px 24px; color: #f44336; font-weight: bold; text-transform: uppercase; overflow: hidden; transition: 0.5s; letter-spacing: 4px; background: none; border: none; cursor: pointer; z-index: 1; }
-    .play-now-btn:hover { background: #f44336; color: #fff; border-radius: 5px; box-shadow: 0 0 5px #f44336,0 0 25px #f44336,0 0 50px #f44336,0 0 100px #f44336; }
-    .play-now-btn span { position: absolute; display: block; background: #f44336; }
-    .play-now-btn span:nth-child(1) { top: 0; left: -100%; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, #f44336); animation: btn-anim1 1s linear infinite; }
-    .play-now-btn span:nth-child(2) { top: -100%; right: 0; width: 2px; height: 100%; background: linear-gradient(180deg, transparent, #f44336); animation: btn-anim2 1s linear infinite; animation-delay: .25s; }
-    .play-now-btn span:nth-child(3) { bottom: 0; right: -100%; width: 100%; height: 2px; background: linear-gradient(270deg, transparent, #f44336); animation: btn-anim3 1s linear infinite; animation-delay: .5s; }
-    .play-now-btn span:nth-child(4) { bottom: -100%; left: 0; width: 2px; height: 100%; background: linear-gradient(360deg, transparent, #f44336); animation: btn-anim4 1s linear infinite; animation-delay: .75s; }
-    @keyframes btn-anim1 { 0% { left: -100%; } 50%,100% { left: 100%; } }
-    @keyframes btn-anim2 { 0% { top: -100%; } 50%,100% { top: 100%; } }
-    @keyframes btn-anim3 { 0% { right: -100%; } 50%,100% { right: 100%; } }
-    @keyframes btn-anim4 { 0% { bottom: -100%; } 50%,100% { bottom: 100%; } }
+<style id="theme1">
+    @font-face {
+      font-family: customfont;
+      src: url(c.otf);
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: customfont;
+      background: linear-gradient(#1b0b0b, #3a1b1b);
+    }
+  
+    /* === PLAY NOW Animated Button (Red) === */
+    .play-now-btn {
+      position: relative;
+      display: inline-block;
+      padding: 12px 24px;
+      color: #f44336;
+      font-weight: bold;
+      text-transform: uppercase;
+      overflow: hidden;
+      transition: 0.5s;
+      letter-spacing: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 1;
+    }
+  
+    .play-now-btn:hover {
+      background: #f44336;
+      color: #fff;
+      border-radius: 5px;
+      box-shadow:
+        0 0 5px #f44336,
+        0 0 25px #f44336,
+        0 0 50px #f44336,
+        0 0 100px #f44336;
+    }
+  
+    .play-now-btn span {
+      position: absolute;
+      display: block;
+      background: #f44336;
+    }
+    .play-now-btn span:nth-child(1) {
+      top: 0; left: -100%;
+      width: 100%; height: 2px;
+      background: linear-gradient(90deg, transparent, #f44336);
+      animation: btn-anim1 1s linear infinite;
+    }
+    .play-now-btn span:nth-child(2) {
+      top: -100%; right: 0;
+      width: 2px; height: 100%;
+      background: linear-gradient(180deg, transparent, #f44336);
+      animation: btn-anim2 1s linear infinite;
+      animation-delay: .25s;
+    }
+    .play-now-btn span:nth-child(3) {
+      bottom: 0; right: -100%;
+      width: 100%; height: 2px;
+      background: linear-gradient(270deg, transparent, #f44336);
+      animation: btn-anim3 1s linear infinite;
+      animation-delay: .5s;
+    }
+    .play-now-btn span:nth-child(4) {
+      bottom: -100%; left: 0;
+      width: 2px; height: 100%;
+      background: linear-gradient(360deg, transparent, #f44336);
+      animation: btn-anim4 1s linear infinite;
+      animation-delay: .75s;
+    }
+  
+    @keyframes btn-anim1 {
+      0%   { left: -100%; }
+      50%,100% { left: 100%; }
+    }
+    @keyframes btn-anim2 {
+      0%   { top: -100%; }
+      50%,100% { top: 100%; }
+    }
+    @keyframes btn-anim3 {
+      0%   { right: -100%; }
+      50%,100% { right: 100%; }
+    }
+    @keyframes btn-anim4 {
+      0%   { bottom: -100%; }
+      50%,100% { bottom: 100%; }
+    }
   </style>
+  
   <!-- Dark (Blue) Theme -->
   <style id="theme2" disabled>
-    @font-face { font-family: customfont; src: url(c.otf); }
-    html, body { height: 100%; margin: 0; padding: 0; font-family: customfont; background: linear-gradient(#141e30, #243b55); }
-    .play-now-btn { position: relative; display: inline-block; padding: 12px 24px; color: #03e9f4; font-weight: bold; text-transform: uppercase; overflow: hidden; transition: 0.5s; letter-spacing: 4px; background: none; border: none; cursor: pointer; z-index: 1; }
-    .play-now-btn:hover { background: #03e9f4; color: #fff; border-radius: 5px; box-shadow: 0 0 5px #03e9f4,0 0 25px #03e9f4,0 0 50px #03e9f4,0 0 100px #03e9f4; }
-    .play-now-btn span { position: absolute; display: block; background: #03e9f4; }
-    .play-now-btn span:nth-child(1) { top: 0; left: -100%; width: 100%; height: 2px; background: linear-gradient(90deg, transparent, #03e9f4); animation: btn-anim1 1s linear infinite; }
-    .play-now-btn span:nth-child(2) { top: -100%; right: 0; width: 2px; height: 100%; background: linear-gradient(180deg, transparent, #03e9f4); animation: btn-anim2 1s linear infinite; animation-delay: .25s; }
-    .play-now-btn span:nth-child(3) { bottom: 0; right: -100%; width: 100%; height: 2px; background: linear-gradient(270deg, transparent, #03e9f4); animation: btn-anim3 1s linear infinite; animation-delay: .5s; }
-    .play-now-btn span:nth-child(4) { bottom: -100%; left: 0; width: 2px; height: 100%; background: linear-gradient(360deg, transparent, #03e9f4); animation: btn-anim4 1s linear infinite; animation-delay: .75s; }
-    @keyframes btn-anim1 { 0% { left: -100%; } 50%,100% { left: 100%; } }
-    @keyframes btn-anim2 { 0% { top: -100%; } 50%,100% { top: 100%; } }
-    @keyframes btn-anim3 { 0% { right: -100%; } 50%,100% { right: 100%; } }
-    @keyframes btn-anim4 { 0% { bottom: -100%; } 50%,100% { bottom: 100%; } }
+    @font-face {
+      font-family: customfont;
+      src: url(c.otf);
+    }
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+      font-family: customfont;
+      background: linear-gradient(#141e30, #243b55);
+    }
+  
+    /* === PLAY NOW Animated Button (Blue) === */
+    .play-now-btn {
+      position: relative;
+      display: inline-block;
+      padding: 12px 24px;
+      color: #03e9f4;
+      font-weight: bold;
+      text-transform: uppercase;
+      overflow: hidden;
+      transition: 0.5s;
+      letter-spacing: 4px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      z-index: 1;
+    }
+  
+    .play-now-btn:hover {
+      background: #03e9f4;
+      color: #fff;
+      border-radius: 5px;
+      box-shadow:
+        0 0 5px #03e9f4,
+        0 0 25px #03e9f4,
+        0 0 50px #03e9f4,
+        0 0 100px #03e9f4;
+    }
+  
+    .play-now-btn span {
+      position: absolute;
+      display: block;
+      background: #03e9f4;
+    }
+    .play-now-btn span:nth-child(1) {
+      top: 0; left: -100%;
+      width: 100%; height: 2px;
+      background: linear-gradient(90deg, transparent, #03e9f4);
+      animation: btn-anim1 1s linear infinite;
+    }
+    .play-now-btn span:nth-child(2) {
+      top: -100%; right: 0;
+      width: 2px; height: 100%;
+      background: linear-gradient(180deg, transparent, #03e9f4);
+      animation: btn-anim2 1s linear infinite;
+      animation-delay: .25s;
+    }
+    .play-now-btn span:nth-child(3) {
+      bottom: 0; right: -100%;
+      width: 100%; height: 2px;
+      background: linear-gradient(270deg, transparent, #03e9f4);
+      animation: btn-anim3 1s linear infinite;
+      animation-delay: .5s;
+    }
+    .play-now-btn span:nth-child(4) {
+      bottom: -100%; left: 0;
+      width: 2px; height: 100%;
+      background: linear-gradient(360deg, transparent, #03e9f4);
+      animation: btn-anim4 1s linear infinite;
+      animation-delay: .75s;
+    }
+  
+    /* Reuse the same keyframes */
+    @keyframes btn-anim1 {
+      0%   { left: -100%; }
+      50%,100% { left: 100%; }
+    }
+    @keyframes btn-anim2 {
+      0%   { top: -100%; }
+      50%,100% { top: 100%; }
+    }
+    @keyframes btn-anim3 {
+      0%   { right: -100%; }
+      50%,100% { right: 100%; }
+    }
+    @keyframes btn-anim4 {
+      0%   { bottom: -100%; }
+      50%,100% { bottom: 100%; }
+    }
   </style>
+  
+
+ 
 </head>
 <body class="min-h-screen text-gray-900" onload="bgc()">
   <!-- Header -->
@@ -67,9 +224,22 @@
         <input id="sideToggle" type="checkbox" class="sr-only peer" />
         <div class="w-12 h-6 bg-red-500 rounded-full peer-checked:bg-blue-500 transition"></div>
         <span class="absolute left-1 top-1 bg-white w-4 h-4 rounded-full peer-checked:translate-x-6 transition"></span>
-      </div>
+      </label>
       <span class="text-gray-200 font-medium">Blue</span>
-    </section>
+    </div>
+<div id="requests" class="flex flex-col items-center justify-center py-20 space-y-6">
+  <br>
+  <center>
+   <h3 class="text-2xl font-bold text-white">CHOOSE YOUR OPPONENT.</h3>
+
+  </center>
+</div>
+    <!-- Play Button with Animated Borders -->
+    <button class="play-now-btn">
+      <span></span><span></span><span></span><span></span>
+      Play Now/Update Lobby
+    </button>
+  </section>
 
   <!-- Footer -->
   <footer class="p-4 text-center text-gray-400">
@@ -79,106 +249,145 @@
       later5143@gmail.com
     </a>
   </footer>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/firebase@9.23.0/firebase-app.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/firebase@9.23.0/firebase-analytics.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/firebase@9.23.0/firebase-auth.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/firebase@9.23.0/firebase-database.js"></script>
+  <form id="my-form">
+    <div class="cf-turnstile" data-sitekey="0x4AAAAAABdKR0oWMX67xVHO"></div>
+    <button type="submit">Submit</button>
+  </form>
+  
+<!-- Scripts -->
 
+  <!-- Firebase + Matchmaking Script -->
   <script type="module">
-  // Import necessary Firebase modules
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics.js";
-  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+  // Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
-  // Initialize Firebase
-  const firebaseConfig = {
-    apiKey: "AIzaSyAj4N3x89n7tbHHQfRi5kyeM5F8yQCocGQ",
-    authDomain: "khet-c6b0f.firebaseapp.com",
-    databaseURL: "https://khet-c6b0f-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "khet-c6b0f",
-    storageBucket: "khet-c6b0f.firebasedorage.app",
-    messagingSenderId: "866179433994",
-    appId: "1:866179433994:web:a9162c242fbc24dd7e41f3",
-    measurementId: "G-T4246JW0MH"
-  };
-  const app = initializeApp(firebaseConfig);
-  getAnalytics(app);
-  const auth = getAuth();
-  const db = getDatabase();
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyAj4N3x89n7tbHHQfRi5kyeM5F8yQCocGQ",
+  authDomain: "khet-c6b0f.firebaseapp.com",
+  databaseURL: "https://khet-c6b0f-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "khet-c6b0f",
+  storageBucket: "khet-c6b0f.firebasestorage.app",
+  messagingSenderId: "866179433994",
+  appId: "1:866179433994:web:a9162c242fbc24dd7e41f3",
+  measurementId: "G-T4246JW0MH"
+};
 
-  // Protect page & show email
-  onAuthStateChanged(auth, user => {
-    if (!user) {
-      window.location.replace("https://laserchess.pages.dev/Auth/login");
-    } else {
-      document.getElementById("userEmail").textContent = user.email;
-    }
-  });
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
 
-  // Sign-out helper
-  window.handleSignOut = () => {
-    signOut(auth).then(() => {
-      window.location.replace("https://laserchess.pages.dev/Auth/login");
-    }).catch(console.error);
-  };
-
-  // Play Now / Match Request
-  document.getElementById("playBtn").addEventListener("click", async () => {
-    const user = auth.currentUser;
-    if (!user) { alert("Please sign in first."); return; }
-    const side = document.getElementById("sideToggle").checked ? "blue" : "red";
-    let idToken;
-    try {
-      idToken = await user.getIdToken(true);
-    } catch (e) {
-      alert("Auth error, please try again."); return;
-    }
-    try {
-      const res = await fetch(
-        "https://laserchessnexus-matchmanager-v-alpha.later5143.workers.dev",
-        { method: "POST", headers: { "Content-Type": "application/json", "Authorization": `Bearer ${idToken}` }, body: JSON.stringify({ side }) }
-      );
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || JSON.stringify(data));
-      console.log("✅ Match request added:", data);
-      document.getElementById("playBtn").textContent = "Waiting…";
-    } catch (err) {
-      alert(`Error: ${err.message}`);
-    }
-  });
-
-  // Real-time Lobby Table
-  const requestsDiv = document.getElementById("requests");
-  const table = document.createElement("table");
-  table.className = "min-w-full bg-white text-gray-900 rounded shadow";
-  requestsDiv.innerHTML = "<h3 class='text-2xl font-bold text-white mb-4'>Lobby</h3>";
-  requestsDiv.appendChild(table);
-  onValue(ref(db, "Lobby"), snapshot => {
-    const records = snapshot.val() || {};
-    table.innerHTML = `
-      <thead class="bg-gray-200">
-        <tr><th class="px-4 py-2">Email</th><th class="px-4 py-2">Side</th><th class="px-4 py-2">Time</th></tr>
-      </thead><tbody></tbody>
-    `;
-    const tbody = table.querySelector("tbody");
-    Object.entries(records).forEach(([key, rec]) => {
-      const tr = document.createElement("tr");
-      tr.innerHTML = `
-        <td class="border px-4 py-2">${key.replace(/,/g, ".")}</td>
-        <td class="border px-4 py-2">${rec.side ? "blue" : "red"}</td>
-        <td class="border px-4 py-2">${new Date(rec.time || rec.timestamp).toLocaleTimeString()}</td>
-      `;
-      tbody.appendChild(tr);
+    // 4) Protect page & show email
+    onAuthStateChanged(auth, user => {
+      if (!user) {
+        // not signed in → back to login
+        window.location.replace("https://laserchess.pages.dev/Auth/login");
+      } else {
+        // signed in → show email in header
+        document.getElementById("userEmail").textContent = user.email;
+      }
     });
-  });
 
-  // Theme Switcher
-  const t1 = document.getElementById("theme1"), t2 = document.getElementById("theme2"), tog = document.getElementById("sideToggle");
-  window.addEventListener("DOMContentLoaded", () => { const pick = Math.random()<0.5; t1.disabled = !pick; t2.disabled = pick; tog.checked = pick; });
-  tog.addEventListener("change", () => { t1.disabled = tog.checked; t2.disabled = !tog.checked; });
-  function bgc(){ t1.disabled = !tog.checked; t2.disabled = tog.checked; }
-</script>
+    // 5) Sign-out helper (called by your Sign out link)
+    window.handleSignOut = () => {
+      signOut(auth)
+        .then(() => window.location.replace("https://laserchess.pages.dev/Auth/login"))
+        .catch(console.error);
+    };
+
+    // 6) Play Now handler
+    document.addEventListener("DOMContentLoaded", () => {
+      const toggle  = document.getElementById("sideToggle");
+      const playBtn = document.querySelector(".play-now-btn");
+
+      playBtn.addEventListener("click", async () => {
+        // ensure user is signed in
+        const user = auth.currentUser;
+        if (!user) {
+          return alert("Please sign in first.");
+        }
+
+        // determine side
+        const side = toggle.checked ? "blue" : "red";
+
+        // get fresh ID token
+        let idToken;
+        try {
+          idToken = await user.getIdToken(true);
+        } catch (e) {
+          console.error("Token error:", e);
+          return alert("Auth error, please try again.");
+        }
+
+        // call your Cloudflare Worker
+        try {
+          const res = await fetch(
+            "https://laserchessnexus-matchmanager-v-alpha.later5143.workers.dev",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type":  "application/json",
+                "Authorization": Bearer ${idToken}
+              },
+              body: JSON.stringify({ side })
+            }
+          );
+          if (!res.ok) {
+            const text = await res.text();
+            throw new Error(text || res.status);
+          }
+          const data = await res.json();
+          console.log("Matchmaker →", data);
+          // TODO: navigate to your match page or show matchId, etc.
+        } catch (err) {
+          console.error("Queue error:", err);
+          alert("Failed to join queue—check console for details.");
+        }
+      });
+    });
+  </script>
+
+  <!-- Theme switcher (keep this last so it doesn’t interfere) -->
+  <script>
+    const t1 = document.getElementById("theme1");
+    const t2 = document.getElementById("theme2");
+    const toggle = document.getElementById("sideToggle");
+
+    // apply on load
+    window.addEventListener("DOMContentLoaded", () => {
+      const pick = Math.random() < 0.5;
+      t1.disabled = !pick;
+      t2.disabled = pick;
+      toggle.checked = pick;
+    });
+
+    // apply on toggle change
+    toggle.addEventListener("change", () => {
+      t1.disabled = toggle.checked;
+      t2.disabled = !toggle.checked;
+    });
+  </script>
+
+   <!-- Theme Switcher Script -->
+   <script>
+    const sideToggle = document.getElementById('sideToggle');
+    function bgc() {
+      document.getElementById('theme1').disabled = sideToggle.checked;
+      document.getElementById('theme2').disabled = !sideToggle.checked;
+    }
+    sideToggle.addEventListener('change', () => {
+      document.getElementById('theme1').disabled = sideToggle.checked;
+      document.getElementById('theme2').disabled = !sideToggle.checked;
+    });
+    var S = Math.random() < 0.5;
+    document.getElementById('sideToggle').checked = S;
+
+  </script>
 </body>
 </html>
