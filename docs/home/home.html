@@ -67,18 +67,9 @@
         <input id="sideToggle" type="checkbox" class="sr-only peer" />
         <div class="w-12 h-6 bg-red-500 rounded-full peer-checked:bg-blue-500 transition"></div>
         <span class="absolute left-1 top-1 bg-white w-4 h-4 rounded-full peer-checked:translate-x-6 transition"></span>
-      </label>
+      </div>
       <span class="text-gray-200 font-medium">Blue</span>
-    </div>
-    <div id="requests" class="flex flex-col items-center justify-center py-20 space-y-6">
-      <h3 class="text-2xl font-bold text-white">CHOOSE YOUR OPPONENT.</h3>
-    </div>
-    <!-- Play Button with Animated Borders -->
-    <button id="playBtn" class="play-now-btn">
-      <span></span><span></span><span></span><span></span>
-      Play Now/Update Lobby
-    </button>
-  </section>
+    </section>
 
   <!-- Footer -->
   <footer class="p-4 text-center text-gray-400">
@@ -89,133 +80,105 @@
     </a>
   </footer>
 
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/firebase@9.23.0/firebase-app.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/firebase@9.23.0/firebase-analytics.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/firebase@9.23.0/firebase-auth.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/firebase@9.23.0/firebase-database.js"></script>
 
-  <form id="my-form">
-    <div class="cf-turnstile" data-sitekey="0x4AAAAAABdKR0oWMX67xVHO"></div>
-    <button type="submit">Submit</button>
-  </form>
-  
-  <!-- Firebase + Matchmaking Script -->
   <script type="module">
-    import { initializeApp } from "firebase/app";
-    import { getAnalytics } from "firebase/analytics";
-    import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
-    import { getDatabase, ref, onValue } from "firebase/database";
+  // Import necessary Firebase modules
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-analytics.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+  import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 
-    // Firebase config
-    const firebaseConfig = {
-      apiKey: "AIzaSyAj4N3x89n7tbHHQfRi5kyeM5F8yQCocGQ",
-      authDomain: "khet-c6b0f.firebaseapp.com",
-      databaseURL: "https://khet-c6b0f-default-rtdb.europe-west1.firebasedatabase.app",
-      projectId: "khet-c6b0f",
-      storageBucket: "khet-c6b0f.firebasestorage.app",
-      messagingSenderId: "866179433994",
-      appId: "1:866179433994:web:a9162c242fbc24dd7e41f3",
-      measurementId: "G-T4246JW0MH"
-    };
-    const app = initializeApp(firebaseConfig);
-    getAnalytics(app);
-    const auth = getAuth();
-    const db = getDatabase();
+  // Initialize Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyAj4N3x89n7tbHHQfRi5kyeM5F8yQCocGQ",
+    authDomain: "khet-c6b0f.firebaseapp.com",
+    databaseURL: "https://khet-c6b0f-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "khet-c6b0f",
+    storageBucket: "khet-c6b0f.firebasedorage.app",
+    messagingSenderId: "866179433994",
+    appId: "1:866179433994:web:a9162c242fbc24dd7e41f3",
+    measurementId: "G-T4246JW0MH"
+  };
+  const app = initializeApp(firebaseConfig);
+  getAnalytics(app);
+  const auth = getAuth();
+  const db = getDatabase();
 
-    // Protect page & show email
-    onAuthStateChanged(auth, user => {
-      if (!user) {
-        window.location.replace("https://laserchess.pages.dev/Auth/login");
-      } else {
-        document.getElementById("userEmail").textContent = user.email;
-      }
-    });
-
-    // Sign-out helper
-    window.handleSignOut = () => {
-      signOut(auth)
-        .then(() => window.location.replace("https://laserchess.pages.dev/Auth/login"))
-        .catch(console.error);
-    };
-
-    // Play Now / Match Request
-    document.getElementById("playBtn").addEventListener("click", async () => {
-      const user = auth.currentUser;
-      if (!user) return alert("Please sign in first.");
-      const side = document.getElementById("sideToggle").checked ? "blue" : "red";
-      let idToken;
-      try {
-        idToken = await user.getIdToken(true);
-      } catch (e) {
-        console.error("Token error:", e);
-        return alert("Auth error, please try again.");
-      }
-      try {
-        const res = await fetch(
-          "https://laserchessnexus-matchmanager-v-alpha.later5143.workers.dev",
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json", "Authorization": `Bearer ${idToken}` },
-            body: JSON.stringify({ side })
-          }
-        );
-        const data = await res.json();
-        if (!res.ok) throw new Error(data.error || JSON.stringify(data));
-        console.log("✅ Match request added:", data);
-        document.getElementById("playBtn").textContent = "Waiting…";
-      } catch (err) {
-        console.error("Queue error:", err);
-        alert(`Error: ${err.message}`);
-      }
-    });
-
-    // Real-time Lobby Table
-    const lobbyRef = ref(db, "Lobby");
-    const container = document.getElementById("requests");
-    const table = document.createElement("table");
-    table.className = "min-w-full bg-white text-gray-900 rounded shadow";
-    container.appendChild(table);
-    onValue(lobbyRef, snapshot => {
-      const records = snapshot.val() || {};
-      table.innerHTML = `
-        <thead class="bg-gray-200">
-          <tr>
-            <th class="px-4 py-2">Email</th>
-            <th class="px-4 py-2">Side</th>
-            <th class="px-4 py-2">Time</th>
-          </tr>
-        </thead>
-        <tbody></tbody>
-      `;
-      const tbody = table.querySelector("tbody");
-      Object.entries(records).forEach(([key, rec]) => {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
-          <td class="border px-4 py-2">${key.replace(/,/g, ".")}</td>
-          <td class="border px-4 py-2">${rec.side ? "blue" : "red"}</td>
-          <td class="border px-4 py-2">${new Date(rec.time || rec.timestamp).toLocaleTimeString()}</td>
-        `;
-        tbody.appendChild(tr);
-      });
-    });
-  </script>
-
-  <!-- Theme Switcher -->
-  <script>
-    const t1 = document.getElementById("theme1");
-    const t2 = document.getElementById("theme2");
-    const toggle = document.getElementById("sideToggle");
-    window.addEventListener("DOMContentLoaded", () => {
-      const pick = Math.random() < 0.5;
-      t1.disabled = !pick;
-      t2.disabled = pick;
-      toggle.checked = pick;
-    });
-    toggle.addEventListener("change", () => {
-      t1.disabled = toggle.checked;
-      t2.disabled = !toggle.checked;
-    });
-    function bgc() {
-      t1.disabled = !toggle.checked;
-      t2.disabled = toggle.checked;
+  // Protect page & show email
+  onAuthStateChanged(auth, user => {
+    if (!user) {
+      window.location.replace("https://laserchess.pages.dev/Auth/login");
+    } else {
+      document.getElementById("userEmail").textContent = user.email;
     }
-  </script>
+  });
+
+  // Sign-out helper
+  window.handleSignOut = () => {
+    signOut(auth).then(() => {
+      window.location.replace("https://laserchess.pages.dev/Auth/login");
+    }).catch(console.error);
+  };
+
+  // Play Now / Match Request
+  document.getElementById("playBtn").addEventListener("click", async () => {
+    const user = auth.currentUser;
+    if (!user) { alert("Please sign in first."); return; }
+    const side = document.getElementById("sideToggle").checked ? "blue" : "red";
+    let idToken;
+    try {
+      idToken = await user.getIdToken(true);
+    } catch (e) {
+      alert("Auth error, please try again."); return;
+    }
+    try {
+      const res = await fetch(
+        "https://laserchessnexus-matchmanager-v-alpha.later5143.workers.dev",
+        { method: "POST", headers: { "Content-Type": "application/json", "Authorization": `Bearer ${idToken}` }, body: JSON.stringify({ side }) }
+      );
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error || JSON.stringify(data));
+      console.log("✅ Match request added:", data);
+      document.getElementById("playBtn").textContent = "Waiting…";
+    } catch (err) {
+      alert(`Error: ${err.message}`);
+    }
+  });
+
+  // Real-time Lobby Table
+  const requestsDiv = document.getElementById("requests");
+  const table = document.createElement("table");
+  table.className = "min-w-full bg-white text-gray-900 rounded shadow";
+  requestsDiv.innerHTML = "<h3 class='text-2xl font-bold text-white mb-4'>Lobby</h3>";
+  requestsDiv.appendChild(table);
+  onValue(ref(db, "Lobby"), snapshot => {
+    const records = snapshot.val() || {};
+    table.innerHTML = `
+      <thead class="bg-gray-200">
+        <tr><th class="px-4 py-2">Email</th><th class="px-4 py-2">Side</th><th class="px-4 py-2">Time</th></tr>
+      </thead><tbody></tbody>
+    `;
+    const tbody = table.querySelector("tbody");
+    Object.entries(records).forEach(([key, rec]) => {
+      const tr = document.createElement("tr");
+      tr.innerHTML = `
+        <td class="border px-4 py-2">${key.replace(/,/g, ".")}</td>
+        <td class="border px-4 py-2">${rec.side ? "blue" : "red"}</td>
+        <td class="border px-4 py-2">${new Date(rec.time || rec.timestamp).toLocaleTimeString()}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  });
+
+  // Theme Switcher
+  const t1 = document.getElementById("theme1"), t2 = document.getElementById("theme2"), tog = document.getElementById("sideToggle");
+  window.addEventListener("DOMContentLoaded", () => { const pick = Math.random()<0.5; t1.disabled = !pick; t2.disabled = pick; tog.checked = pick; });
+  tog.addEventListener("change", () => { t1.disabled = tog.checked; t2.disabled = !tog.checked; });
+  function bgc(){ t1.disabled = !tog.checked; t2.disabled = tog.checked; }
+</script>
 </body>
 </html>
