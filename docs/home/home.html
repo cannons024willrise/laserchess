@@ -277,29 +277,24 @@
     measurementId: "G-T4246JW0MH"
   };
 
-  // Initialize Firebase
-  firebase.initializeApp(firebaseConfig);
+ // Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+const auth = firebase.auth();
 
-  const auth = firebase.auth();
+auth.onAuthStateChanged(user => {
+  if (!user) {
+    window.location.replace("https://laserchess.pages.dev/Auth/login");
+  } else {
+    document.getElementById("userEmail").textContent = user.email;
+  }
+});
 
+window.handleSignOut = () => {
+  auth.signOut()
+    .then(() => window.location.replace("https://laserchess.pages.dev/Auth/login"))
+    .catch(console.error);
+};
 
-    // 4) Protect page & show email
-    onAuthStateChanged(auth, user => {
-      if (!user) {
-        // not signed in → back to login
-        window.location.replace("https://laserchess.pages.dev/Auth/login");
-      } else {
-        // signed in → show email in header
-        document.getElementById("userEmail").textContent = user.email;
-      }
-    });
-
-    // 5) Sign-out helper (called by your Sign out link)
-    window.handleSignOut = () => {
-      signOut(auth)
-        .then(() => window.location.replace("https://laserchess.pages.dev/Auth/login"))
-        .catch(console.error);
-    };
 
     // 6) Play Now handler
     document.addEventListener("DOMContentLoaded", () => {
