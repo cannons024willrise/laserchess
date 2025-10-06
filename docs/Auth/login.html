@@ -411,7 +411,19 @@ measurementId: "G-F0PHDZYB4M"
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
   const provider = new GoogleAuthProvider();
-
+    
+     // IMPORTANT: make auth persist across reloads/tabs
+  // (modular SDK: setPersistence + browserLocalPersistence)
+  import { setPersistence, browserLocalPersistence } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+  (async () => {
+    try {
+      await setPersistence(auth, browserLocalPersistence);
+      console.log("Auth persistence set to LOCAL.");
+    } catch (e) {
+      console.warn("Could not set auth persistence:", e);
+    }
+  })();
+    
   // DOM references
   const statusEl = document.getElementById("status");
   const signUpBtn = document.getElementById("signUpBtn");
@@ -539,3 +551,4 @@ measurementId: "G-F0PHDZYB4M"
           </div>
     </body>
 </html>
+
