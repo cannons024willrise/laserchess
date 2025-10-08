@@ -96,7 +96,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   auth.onAuthStateChanged(user => {
     if (!user) {
-      window.location.replace("https://laserchess.pages.dev/Auth/login");
+      //window.location.replace("https://laserchess.pages.dev/Auth/login");
     } else {
       document.getElementById("userEmail").textContent = user.email;
     }
