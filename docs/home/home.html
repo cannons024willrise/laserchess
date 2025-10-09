@@ -161,41 +161,6 @@ document.addEventListener("DOMContentLoaded", () => {
    
   </script>
 
-  <!-- Theme switcher (keep this last so it doesn’t interfere) -->
-  <script>
-    const t1 = document.getElementById("theme1");
-    const t2 = document.getElementById("theme2");
-    const toggle = document.getElementById("sideToggle");
-
-    // apply on load
-    window.addEventListener("DOMContentLoaded", () => {
-      const pick = Math.random() < 0.5;
-      t1.disabled = !pick;
-      t2.disabled = pick;
-      toggle.checked = pick;
-    });
-
-    // apply on toggle change
-    toggle.addEventListener("change", () => {
-      t1.disabled = toggle.checked;
-      t2.disabled = !toggle.checked;
-    });
-  </script>
-
-   <!-- Theme Switcher Script -->
-   <script>
-    const sideToggle = document.getElementById('sideToggle');
-    function bgc() {
-      document.getElementById('theme1').disabled = sideToggle.checked;
-      document.getElementById('theme2').disabled = !sideToggle.checked;
-    }
-    sideToggle.addEventListener('change', () => {
-      document.getElementById('theme1').disabled = sideToggle.checked;
-      document.getElementById('theme2').disabled = !sideToggle.checked;
-    });
-    var S = Math.random() < 0.5;
-    document.getElementById('sideToggle').checked = S;
-
-  </script>
+ 
 </body>
 </html>
