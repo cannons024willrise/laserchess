@@ -1,27 +1,20 @@
-const red = document.getElementById('themeRed');
-const blue = document.getElementById('themeBlue');
-const sideToggle = document.getElementById('sideToggle');
+document.addEventListener("DOMContentLoaded", () => {
+  const red = document.getElementById("themeRed");
+  const blue = document.getElementById("themeBlue");
+  const toggle = document.getElementById("sideToggle");
 
-function enableTheme(useBlue) {
-  if (red) red.disabled = useBlue;
-  if (blue) blue.disabled = !useBlue;
-}
+  if (!red || !blue || !toggle) return;
 
-// initial pick & sync toggle
-document.addEventListener('DOMContentLoaded', () => {
-  const pickBlue = Math.random() < 0.5;
-  enableTheme(pickBlue);
-  if (sideToggle) sideToggle.checked = pickBlue;
-});
+  // Randomly pick a theme on load
+  const blueTheme = Math.random() < 0.5;
+  toggle.checked = blueTheme;
+  red.disabled = blueTheme;
+  blue.disabled = !blueTheme;
 
-// switch theme when checkbox changes
-if (sideToggle) {
-  sideToggle.addEventListener('change', () => {
-    enableTheme(sideToggle.checked);
+  // Switch theme when toggle changes
+  toggle.addEventListener("change", () => {
+    const isBlue = toggle.checked;
+    red.disabled = isBlue;
+    blue.disabled = !isBlue;
   });
-}
-
-// optional: for onload="bgc()"
-window.bgc = function() {
-  if (sideToggle) enableTheme(sideToggle.checked);
-};
+});
