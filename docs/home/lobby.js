@@ -1,9 +1,5 @@
-<!-- Firebase App + Database -->
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.1/firebase-database-compat.js"></script>
 
-<script>
-  // Your Firebase config
+  // Firebase config
   const firebaseConfig = {
     apiKey: "AIzaSyCVHWRoVyuDnKRPY4EQbmyeY_rRR56XpEg",
     authDomain: "laserchessnexus-lobby-db-auth.firebaseapp.com",
@@ -18,22 +14,14 @@
   firebase.initializeApp(firebaseConfig);
   const db = firebase.database();
 
-  // Reference the entire lobby
-  const lobbyRef = db.ref('lobby'); // <-- notice we reference 'lobby' instead of 'lobby/rooms'
+  // Reference the top-level lobby node
+  const lobbyRef = db.ref('lobby');
 
-  // Listen for the whole lobby in real-time
+  // Real-time listener for the whole lobby
   lobbyRef.on('value', (snapshot) => {
+    console.clear(); // optional, clears previous logs
     const lobbyData = snapshot.val();
-    console.log('Entire Lobby:', lobbyData);
-
-    if (lobbyData) {
-      // Loop through all rooms
-      Object.keys(lobbyData.rooms || {}).forEach(roomId => {
-        const room = lobbyData.rooms[roomId];
-        console.log(`Room ID: ${roomId}`, room);
-      });
-    } else {
-      console.log('Lobby is empty');
-    }
+    console.log('RAW LOBBY DATA:', lobbyData); // logs the entire lobby object
   });
-</script>
+
+
