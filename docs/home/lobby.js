@@ -1,60 +1,61 @@
-<script>
- // 6) Play Now handler
-    document.addEventListener("DOMContentLoaded", () => {
-      const toggle  = document.getElementById("sideToggle");
-      const playBtn = document.querySelector(".play-now-btn");
+// lobby.js
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-app.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.5.0/firebase-database.js";
 
-      playBtn.addEventListener("click", async () => {
-        // ensure user is signed in
-        const user = auth.currentUser;
-        if (!user) {
-          return alert("Please sign in first.");
-        }
+// Firebase config
+const firebaseConfig = {
+  apiKey: "AIzaSyCVHWRoVyuDnKRPY4EQbmyeY_rRR56XpEg",
+  authDomain: "laserchessnexus-lobby-db-auth.firebaseapp.com",
+  databaseURL: "https://laserchessnexus-lobby-db-auth-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "laserchessnexus-lobby-db-auth",
+  storageBucket: "laserchessnexus-lobby-db-auth.firebasestorage.app",
+  messagingSenderId: "1054469827964",
+  appId: "1:1054469827964:web:0fe70a1fddb5b5d27588f9",
+  measurementId: "G-F0PHDZYB4M"
+};
 
-        // determine side
-        const side = toggle.checked ? "blue" : "red";
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
-        // get fresh ID token
-        let idToken;
-        try {
-          idToken = await user.getIdToken(true);
-        } catch (e) {
-          console.error("Token error:", e);
-          return alert("Auth error, please try again.");
-        }
+const lobbyRef = ref(db, 'lobby/rooms');
+const lobbyBody = document.getElementById('lobby-body');
+const emptyRow = document.getElementById('lobby-empty-row');
 
-        // call your Cloudflare Worker
-        try {
-          const res = await fetch(
-            "https://laserchessnexus-matchmanager-v-alpha.later5143.workers.dev",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type":  "application/json",
-                "Authorization": `Bearer ${idToken}`
-              },
-              body: JSON.stringify({ side })
-            }
-          );
-          if (!res.ok) {
-            const text = await res.text();
-            throw new Error(text || res.status);
-          }
-          const data = await res.json();
-          console.log("Matchmaker →", data);
-          // TODO: navigate to your match page or show matchId, etc.
-        } catch (err) {
-          console.error("Queue error:", err);
-          alert("Failed to join queue—check console for details.");
-        }
+export function listenLobby() {
+  onValue(lobbyRef, (snapshot) => {
+    const rooms = snapshot.val();
+    console.log('Current Lobby Rooms:', rooms);
+
+    // Clear table except for the empty row
+    lobbyBody.innerHTML = '';
+
+    if (!rooms) {
+      lobbyBody.appendChild(emptyRow);
+      return;
+    }
+
+    // Populate lobby table
+    Object.keys(rooms).forEach((roomId) => {
+      const room = rooms[roomId];
+      if (!room.players) return;
+
+      Object.keys(room.players).forEach((playerId) => {
+        const player = room.players[playerId];
+        const tr = document.createElement('tr');
+
+        const tdId = document.createElement('td');
+        tdId.className = 'px-4 py-3 text-gray-200';
+        tdId.textContent = playerId;
+
+        const tdSide = document.createElement('td');
+        tdSide.className = 'px-4 py-3 text-gray-200';
+        tdSide.textContent = player.side ? 'Red' : 'Blue';
+
+        tr.appendChild(tdId);
+        tr.appendChild(tdSide);
+        lobbyBody.appendChild(tr);
       });
     });
-});
-
-
-
-   
-  </script>
-
-
-
+  });
+}
