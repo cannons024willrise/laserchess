@@ -1,13 +1,11 @@
+// lobby.js — after homeauthcheck.js has initialized Firebase
+const db = firebase.database(); // uses the default app
 
-// lobby.js — assumes Firebase is already initialized in homeauthcheck.js
-const db = firebase.database(); // Reuse the default app
-
-// Reference the Lobby node (note the capital L)
 const lobbyRef = db.ref('Lobby');
 
 lobbyRef.on('value', snapshot => {
-  console.clear();
   const lobbyData = snapshot.val();
+  console.clear();
   console.log('RAW LOBBY DATA:', lobbyData);
 
   if (lobbyData) {
@@ -18,7 +16,3 @@ lobbyRef.on('value', snapshot => {
     console.log('Lobby is empty');
   }
 });
-
-
-
-
