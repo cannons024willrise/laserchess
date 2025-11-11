@@ -1,5 +1,4 @@
 
-  // Firebase config
   const firebaseConfig = {
     apiKey: "AIzaSyCVHWRoVyuDnKRPY4EQbmyeY_rRR56XpEg",
     authDomain: "laserchessnexus-lobby-db-auth.firebaseapp.com",
@@ -10,18 +9,25 @@
     appId: "1:1054469827964:web:0fe70a1fddb5b5d27588f9"
   };
 
-  // Initialize Firebase
   firebase.initializeApp(firebaseConfig);
   const db = firebase.database();
 
-  // Reference the top-level lobby node
-  const lobbyRef = db.ref('lobby');
+  // Correct reference (capital L)
+  const lobbyRef = db.ref('Lobby');
 
-  // Real-time listener for the whole lobby
-  lobbyRef.on('value', (snapshot) => {
-    console.clear(); // optional, clears previous logs
+  lobbyRef.on('value', snapshot => {
     const lobbyData = snapshot.val();
-    console.log('RAW LOBBY DATA:', lobbyData); // logs the entire lobby object
+    console.clear();
+    console.log('RAW LOBBY DATA:', lobbyData);
+
+    if (lobbyData) {
+      Object.keys(lobbyData).forEach(playerKey => {
+        console.log(`Player: ${playerKey}`, lobbyData[playerKey]);
+      });
+    } else {
+      console.log('Lobby is empty');
+    }
   });
+
 
 
