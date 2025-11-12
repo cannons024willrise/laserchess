@@ -1,30 +1,41 @@
-// lobby.js — assumes Firebase is initialized in homeauthcheck.js
-(function() {
-  firebase.auth().onAuthStateChanged(user => {
+// lobby.js
+
+// Make sure Firebase compat SDKs are loaded before this script
+if (typeof firebase === 'undefined' || !firebase.auth) {
+  console.error('Firebase not loaded. Include firebase-app-compat.js, firebase-auth-compat.js, and firebase-database-compat.js first.');
+} else {
+  const auth = firebase.auth();
+
+  // Wait for user to be authenticated
+  auth.onAuthStateChanged(user => {
     if (!user) {
-      console.warn("lobby.js: User not signed in yet. Waiting...");
-      return; // listener will fire again when user signs in
+      console.warn('User not signed in yet. Lobby listener will not start.');
+      return;
     }
 
-    console.log("lobby.js: Auth ready as", user.email);
+    console.log('lobby.js: Auth ready as', user.email);
 
-    const db = firebase.database();
-    const lobbyRef = db.ref("Lobby");
+    // Connect explicitly to your regional database
+    const db = firebase.database("https://laserchessnexus-lobby-db-auth-default-rtdb.europe-west1.firebasedatabase.app");
 
-    // Real-time listener — now safe because auth is confirmed
-    lobbyRef.on("value", snapshot => {
-      const lobbyData = snapshot.val();
+    // Reference the Lobby node
+    const lobbyRef = db.ref('Lobby');
+
+    // Real-time listener
+    lobbyRef.on('value', snapshot => {
       console.clear();
-      console.log("RAW LOBBY DATA:", lobbyData);
+      const lobbyData = snapshot.val();
+      console.log('RAW LOBBY DATA:', lobbyData);
 
       if (lobbyData) {
         Object.keys(lobbyData).forEach(playerKey => {
           console.log(`Player: ${playerKey}`, lobbyData[playerKey]);
         });
       } else {
-        console.log("Lobby is empty");
+        console.log('Lobby is empty');
       }
     });
   });
-})();
+}
+
 
