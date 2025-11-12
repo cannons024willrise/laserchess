@@ -1,12 +1,18 @@
+// lobby.js — uses compat SDK, real-time listener after auth
+
 firebase.auth().onAuthStateChanged(user => {
-  if (!user) return;
+  if (!user) return; // wait until signed in
 
   console.log("lobby.js: Auth ready as", user.email);
 
-  // Attach the listener only once
-  lobbyRef.once('value').then(snapshot => {
+  // Initialize database with correct region URL
+  const db = firebase.database("https://laserchessnexus-lobby-db-auth-default-rtdb.europe-west1.firebasedatabase.app");
+  const lobbyRef = db.ref('Lobby');
+
+  // Real-time listener
+  lobbyRef.on('value', snapshot => {
     const lobbyData = snapshot.val();
-    console.clear();
+    console.clear(); // optional: keeps console clean
     console.log('RAW LOBBY DATA:', lobbyData);
 
     if (lobbyData) {
