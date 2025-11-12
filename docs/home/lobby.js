@@ -4,7 +4,8 @@ firebase.auth().onAuthStateChanged(user => {
 
   console.log("lobby.js: Auth ready as", user.email);
 
-  const db = firebase.database();
+  const db = firebase.database(firebase.app(), "https://laserchessnexus-lobby-db-auth-default-rtdb.europe-west1.firebasedatabase.app");
+
   const lobbyRef = db.ref('Lobby'); // ensure the node name matches your DB
 
   lobbyRef.on('value', snapshot => {
@@ -20,6 +21,7 @@ firebase.auth().onAuthStateChanged(user => {
     }
   });
 });
+
 
 
 
