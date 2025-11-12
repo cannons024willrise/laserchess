@@ -9,7 +9,6 @@ firebase.auth().onAuthStateChanged(user => {
 
   lobbyRef.on('value', snapshot => {
     const lobbyData = snapshot.val();
-    console.clear();
     console.log('RAW LOBBY DATA:', lobbyData);
 
     if (lobbyData) {
@@ -21,5 +20,6 @@ firebase.auth().onAuthStateChanged(user => {
     }
   });
 });
+
 
 
