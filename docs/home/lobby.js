@@ -1,12 +1,10 @@
-const db = firebase.database("https://laserchessnexus-lobby-db-auth-default-rtdb.europe-west1.firebasedatabase.app");
-const lobbyRef = db.ref('Lobby');
-
 firebase.auth().onAuthStateChanged(user => {
   if (!user) return;
 
   console.log("lobby.js: Auth ready as", user.email);
 
-  lobbyRef.on('value', snapshot => {
+  // Attach the listener only once
+  lobbyRef.once('value').then(snapshot => {
     const lobbyData = snapshot.val();
     console.clear();
     console.log('RAW LOBBY DATA:', lobbyData);
@@ -20,6 +18,8 @@ firebase.auth().onAuthStateChanged(user => {
     }
   });
 });
+
+
 
 
 
