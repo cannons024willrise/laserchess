@@ -6,6 +6,7 @@
 const HOME_FIREBASE_CONFIG = {
   apiKey: "AIzaSyCVHWRoVyuDnKRPY4EQbmyeY_rRR56XpEg",
   authDomain: "laserchessnexus-lobby-db-auth.firebaseapp.com",
+  databaseURL: "https://laserchessnexus-lobby-db-auth-default-rtdb.europe-west1.firebasedatabase.app", // <- Add this
   projectId: "laserchessnexus-lobby-db-auth",
   storageBucket: "laserchessnexus-lobby-db-auth.firebasestorage.app",
   messagingSenderId: "1054469827964",
